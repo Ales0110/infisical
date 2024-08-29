@@ -36,10 +36,11 @@ jobs:
         docker push us-central1-docker.pkg.dev/diplom-433408/test/combined-app:latest
       # Отправляет Docker-образ в Artifact Registry
 
-    - name: Set up kubectl
-      uses: google-github-actions/setup-kubectl@v1
-      with:
-        version: 'latest'
+    - name: Install kubectl
+      run: |
+        curl -LO "https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
+        chmod +x ./kubectl
+        sudo mv ./kubectl /usr/local/bin/kubectl
      
 
     - name: Delete old Kubernetes pods
