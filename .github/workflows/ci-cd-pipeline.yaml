@@ -25,7 +25,7 @@ jobs:
       uses: google-github-actions/auth@v1
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
-
+        
     - name: Configure Docker for Artifact Registry
       run: gcloud auth configure-docker us-central1-docker.pkg.dev
       # Docker для Artifact Registry
@@ -39,7 +39,10 @@ jobs:
       run: |
         docker push us-central1-docker.pkg.dev/diplom-433408/test/combined-app:latest
       # Отправляет Docker-образ в Artifact Registry
-
+      
+    - name: Get GKE credentials
+      run: gcloud container clusters get-credentials infisical-cluster --zone us-central1-a
+      
     - name: Install kubectl
       run: |
         curl -LO "https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
