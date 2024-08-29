@@ -52,7 +52,22 @@ jobs:
         chmod +x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
      
+    - name: Install dependencies
+      run: npm install
+      working-directory: backend
 
+    - name: Run integration tests
+      run: npm run test:e2e
+      working-directory: backend
+      env:
+        REDIS_URL: redis://10.119.25.228:6379
+        DB_CONNECTION_URI: postgres://infisical:infisical@34.45.211.113:5432/infisical
+        AUTH_SECRET: 5lrMXKKWCVocS/uerPsl7V+TX/aaUaI7iDkgl3tSmLE=
+        ENCRYPTION_KEY: 6c1fe4e407b8911c104518103505b218
+
+    - name: Delete old Kubernetes pods
+      run: kubectl delete pods -l app=infisical-backend-new
+      
     - name: Delete old Kubernetes pods
       run: kubectl delete pods -l app=infisical-backend-new
       
