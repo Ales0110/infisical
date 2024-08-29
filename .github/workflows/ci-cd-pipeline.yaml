@@ -72,7 +72,6 @@ jobs:
     - name: Clean up test environment
       run: |
         docker compose -f docker-compose.dev.yml down
-      working-directory: backend
       
     - name: Delete old Kubernetes pods
       run: kubectl delete pods -l app=infisical-backend-new
