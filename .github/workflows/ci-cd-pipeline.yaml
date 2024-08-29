@@ -59,8 +59,7 @@ jobs:
     - name: Start postgres and redis for tests
       run: |
         touch .env && docker compose -f docker-compose.dev.yml up -d db redis
-      working-directory: backend
-
+    
     - name: Run integration tests
       run: npm run test:e2e
       working-directory: backend
