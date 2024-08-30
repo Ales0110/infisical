@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infisical-backend-new
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: infisical-backend-new
+  template:
+    metadata:
+      labels:
+        app: infisical-backend-new
+    spec:
+      containers:
+      - name: infisical-backend-new
+        image: us-central1-docker.pkg.dev/diplom-433408/test/combined-app:latest 
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: infisical-config-new
